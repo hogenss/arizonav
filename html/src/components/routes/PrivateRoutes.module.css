@@ -1,0 +1,9 @@
+.routes {
+    display: flex;
+    height: 100%;
+}
+
+.pages {
+    width: 100%;
+    height: 100%;
+}
