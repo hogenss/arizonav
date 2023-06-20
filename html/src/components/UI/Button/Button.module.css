@@ -1,0 +1,23 @@
+.button {
+    padding: 16px 36px;
+
+    font-family: 'Comfortaa';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+
+    color: #fff;
+
+    cursor: pointer;
+
+    border: 1px solid #B0B0B0;
+    border-radius: 5px;
+
+    transition: all 0.5s;
+    background: transparent;
+}
+
+.button:hover {
+    background: #fff;
+}

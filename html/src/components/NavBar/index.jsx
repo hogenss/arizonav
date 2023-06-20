@@ -2,7 +2,6 @@ import React, {useContext} from 'react';
 import cl from './index.module.css'
 import {NavLink} from "react-router-dom";
 //import {linksInfo, adminLinksInfo} from "../../utils/BarLinks";
-import logo from '../../assets/logo.png'
 import avatar from '../../assets/img.png'
 //import {Context} from "../../index";
 
@@ -15,7 +14,7 @@ const NavBar = () => {
 
     return (
         <div className={cl.bar}>
-            <img alt={''} src={logo} className={cl.brandLogo}/>
+            <img alt={''} src="https://i.imgur.com/UW6E4Rn.png" className={cl.brandLogo}/>
             <div className={cl.links}>
                 <NavLink to={'/home'} className={setActiveLink} end>
                     <span>Главная</span>
