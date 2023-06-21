@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 100px;
     padding: 0;
     gap: 25px;
     height: 100vh;
@@ -40,7 +40,6 @@
 
 .svg {
     rotate: 180deg;
-
 }
 
 tr:first-child .td:first-child {
@@ -87,3 +86,66 @@ tr:last-child .td:last-child {
     color: #9E9E9E;
 }
 
+
+.topModal {
+    min-width: 380px;
+    margin: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalCross {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.modalValue {
+    margin: 30px 0 25px 30px;
+    max-width: 150px;
+}
+
+.modalTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    color: #FFFFFF;
+}
+
+.modalBtns {
+    margin: 35px 17px 20px 17px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalBtn {
+    width: fit-content;
+    padding: 7px 30px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 13px;
+
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.modalText {
+
+    margin: 30px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    white-space: nowrap;
+
+    color: #FFFFFF;
+}

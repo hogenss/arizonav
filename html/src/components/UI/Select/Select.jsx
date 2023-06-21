@@ -33,6 +33,7 @@ const Select = ({className, options, defaultValue, value, onChange, name, ...pro
     const selectingItem = (option) => {
         setSelected(option);
         onChange(option.value)
+        expanding();
     }
 
     return (

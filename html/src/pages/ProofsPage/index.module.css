@@ -1,0 +1,156 @@
+.Proofs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    padding: 0;
+    gap: 25px;
+    height: 100vh;
+}
+
+.table {
+    border: 1px solid #fff;
+    border-radius: 12px;
+    border-spacing: 0;
+    text-align: start;
+}
+
+.td {
+    border-bottom: 1px solid #fff;
+    padding: 8px 14px;
+    vertical-align: center;
+    align-items: center;
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #fff;
+    background: #202A37;
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+tr:first-child .td:first-child {
+    border-top-left-radius: 12px;
+}
+tr:first-child .td:last-child {
+    border-top-right-radius: 12px;
+}
+
+tr:last-child .td:first-child {
+    border-bottom-left-radius: 12px;
+}
+tr:last-child .td:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 150px;
+}
+
+.profile {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #FFFFFF;
+}
+
+.tag {
+    color: #9E9E9E;
+}
+
+.link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.check {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.topModal {
+    min-width: 380px;
+    margin: 11px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modalCross {
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.modalValue {
+    margin: 30px 0 25px 30px;
+    max-width: 150px;
+}
+
+.modalTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    text-transform: uppercase;
+    white-space: nowrap;
+
+    color: #FFFFFF;
+}
+
+.modalBtns {
+    margin: 35px 17px 20px 17px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modalBtn {
+    width: fit-content;
+    padding: 7px 30px;
+
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 13px;
+
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.modalText {
+
+    margin: 30px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    white-space: nowrap;
+
+    color: #FFFFFF;
+}

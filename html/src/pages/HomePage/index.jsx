@@ -25,7 +25,7 @@ export const Home = () => {
 
     return (
         <>
-            <NavBar />
+
             <div className={cl.home}>
                 <div className={cl.container}>
                     <div className={cl.form}>

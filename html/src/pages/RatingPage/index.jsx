@@ -6,6 +6,9 @@ import ArrowSvg from "../../components/UI/svg/arrowSvg";
 import EditSvg from "../../components/UI/svg/editSvg";
 import {sortLevel, sortPoints} from "../../utils/sortUsers";
 import Modal from "../../components/Modal/Modal";
+import Input from "../../components/UI/Input/Input";
+import Button from "../../components/UI/Button/Button";
+import CrossSvg from "../../components/UI/svg/crossSvg";
 
 export const Rating = () => {
 
@@ -21,6 +24,9 @@ export const Rating = () => {
     const [activeLevel, setActiveLevel] = useState(false)
 
     const [visible, setVisible] = useState(false)
+    const [visibleDel, setVisibleDel] = useState(false)
+
+    const [member, setMember] = useState({})
 
     const isAdmin = true;
 
@@ -28,7 +34,7 @@ export const Rating = () => {
 
     return (
         <>
-            <NavBar />
+
             <div className={cl.Rating}>
                 <table className={cl.table}>
                     <tr>
@@ -71,17 +77,54 @@ export const Rating = () => {
                                 <td className={cl.td}>{e.level}</td>
                                 {
                                     isAdmin && (
-                                        <td className={cl.td}><EditSvg onClick={() => setVisible(true)}/></td>
+                                        <td className={cl.td}><EditSvg onClick={() => {setVisible(true); setMember(e)}}/></td>
                                     )
                                 }
                             </tr>
                         ))
                     }
                 </table>
-            <Modal visible={visible} setVisible={setVisible}>
-                1231
-            </Modal>
             </div>
+            <Modal visible={visible} setVisible={setVisible}>
+                <div className={cl.topModal}>
+                    <div className={cl.info}>
+                        <img className={cl.avatar} src={member.avatar} alt=""/>
+                        <div className={cl.profile}>
+                            <p>{member.nickname}</p>
+                            <p className={cl.tag}>{member.discord}</p>
+                        </div>
+                    </div>
+                    <CrossSvg onClick={() => setVisible(false)} className={cl.modalCross}/>
+                </div>
+                <div className={cl.modalValue}>
+                    <p className={cl.modalTitle}>Milton points</p>
+                    <Input defaultValue={member.points}/>
+                </div>
+                <div className={cl.modalValue}>
+                    <p className={cl.modalTitle}>BattlePass level</p>
+                    <Input defaultValue={member.level}/>
+                </div>
+                <div className={cl.modalBtns}>
+                    <Button className={cl.modalBtn} children={'Сохранить'}/>
+                    <Button className={cl.modalBtn} children={'Удалить аккаунт'} onClick={() => setVisibleDel(true)}/>
+                </div>
+            </Modal>
+            <Modal visible={visibleDel} setVisible={setVisibleDel}>
+                <div className={cl.topModal}>
+                    <div className={cl.info}>
+                        <img className={cl.avatar} src={member.avatar} alt=""/>
+                        <div className={cl.profile}>
+                            <p>{member.nickname}</p>
+                            <p className={cl.tag}>{member.discord}</p>
+                        </div>
+                    </div>
+                    <CrossSvg onClick={() => setVisibleDel(false)} className={cl.modalCross}/>
+                </div>
+                <p className={cl.modalText}>Вы уверены что хотите удалить все данные пользователя?</p>
+                <div className={cl.modalBtns} style={{justifyContent: 'center'}}>
+                    <Button className={cl.modalBtn} children={'Удалить аккаунт'}/>
+                </div>
+            </Modal>
         </>
     );
 };
