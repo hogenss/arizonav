@@ -20,7 +20,7 @@ const NavBar = () => {
                     <span>Главная</span>
                 </NavLink>
                 <NavLink to={'/rating'} className={setActiveLink} end>
-                    <span>Таблица</span>
+                    <span>Рейтинг</span>
                 </NavLink>
                 {
                     isAdmin && (
