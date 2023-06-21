@@ -25,7 +25,6 @@ export const Home = () => {
 
     return (
         <>
-
             <div className={cl.home}>
                 <div className={cl.container}>
                     <div className={cl.form}>
