@@ -22,7 +22,8 @@ const Select = ({className, options, defaultValue, value, onChange, name, ...pro
     }
 
     const selectingItemClass = (option) => {
-        if(selected === option) {
+        console.log(option)
+        if(selected.value === option.value) {
             return `${cl.item} ${cl.selected}`
         }
 
@@ -30,14 +31,18 @@ const Select = ({className, options, defaultValue, value, onChange, name, ...pro
     }
 
     const selectingItem = (option) => {
-        setSelected(option)
+        setSelected(option);
         onChange(option.value)
     }
 
     return (
         <div className={classes} {...props}>
             <div className={headerClasses.join(' ')} onClick={expanding}>
-                <span>{name}</span>
+                {
+                    !selected.name && (
+                        <span>{name}</span>
+                    )
+                }
                 <span>{selected.name}</span>
             </div>
             <div className={expanded.join(' ')}>
