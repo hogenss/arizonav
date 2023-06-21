@@ -9,7 +9,6 @@ class UserController {
             if (!user){
                 return next(ApiError.UnathorizedError())
             }
-            console.log(user)
             const newUser = await userService.getOneUser(user.discordId)
             return res.json(200, newUser)
         } catch (e) {
