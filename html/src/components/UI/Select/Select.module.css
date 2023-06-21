@@ -55,11 +55,6 @@
     background-color: #2a323b;
 }
 
-.item:nth-last-child(1) {
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-}
-
 .selected {
     background-color: #3d4854;
 }

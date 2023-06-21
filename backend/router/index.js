@@ -1,0 +1,23 @@
+const Router = require('express').Router
+const userController = require('../controllers/userController')
+const discordController = require('../controllers/discordController')
+const formsController = require('../controllers/formsController')
+const passport = require("passport");
+const authMiddleware = require('../middlewares/auth-middleware')
+
+const router = new Router();
+
+router.get('/user', userController.user)
+router.get('/users', authMiddleware, userController.getUsers)
+router.put('/user/update', authMiddleware, userController.updateUser)
+
+
+router.get('/forms', authMiddleware, formsController.getForms)
+router.put('/form/update', authMiddleware, formsController.updateForm)
+router.put('/form/delete', authMiddleware, formsController.deleteForm)
+
+
+router.get('/discord', passport.authenticate('discord'), discordController.discord)
+router.get('/discord/redirect', passport.authenticate('discord'), discordController.redirectDiscord)
+
+module.exports = router
