@@ -1,9 +1,8 @@
-import React, {useContext, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Navigate, Route, Routes} from 'react-router-dom';
-import {privateRoutes, publicRoutes, adminRoutes} from "../../router";
+import {privateRoutes, adminRoutes} from "../../router";
 import PrivateRoutes from "./PrivateRoutes";
 import AdminRoutes from "./AdminRoutes";
-import PublicRoutes from "./PublicRoutes";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUser, fetchUsers} from "../../asyncActions/users";
 import {fetchForms} from "../../asyncActions/forms";
@@ -12,22 +11,23 @@ import {fetchForms} from "../../asyncActions/forms";
 const AppRouter = () => {
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(fetchUser())
-        dispatch(fetchUsers())
-        dispatch(fetchForms())
+    const [loading, setLoading] = useState(true)
+    const user = useSelector(state => state.users.user)
+
+    useEffect( () => {
+        (async function () {
+            dispatch(fetchUser())
+            dispatch(fetchUsers())
+            dispatch(fetchForms())
+            await setLoading(false)
+        })();
         console.log("effect")
     }, [])
 
-    const user = useSelector(state => state.users.user)
-    const users = useSelector(state => state.users.users)
-    console.log(users)
-    const isAuth = useSelector(state => state.users.iaAuth)
-
     return (
         <Routes>
-            <Route element={<PrivateRoutes auth={isAuth}/>}>
-                {privateRoutes.map(route =>
+            <Route element={<PrivateRoutes/>}>
+                {!loading && privateRoutes.map(route =>
                     <Route
                         element={route.component}
                         path={route.path}
@@ -43,17 +43,9 @@ const AppRouter = () => {
                         />
                     )}
                 </Route>
-            </Route>
-            <Route element={<PublicRoutes auth={isAuth}/>}>
-                {publicRoutes.map(route =>
-                    <Route
-                        element={route.component}
-                        path={route.path}
-                        key={route.path}
-                    />
                 )}
             </Route>
-            <Route element={<Navigate to={'/'}/>} path={'*'}/>
+            <Route element={<Navigate to={'/home'}/>} path={'*'}/>
         </Routes>
     )
 }

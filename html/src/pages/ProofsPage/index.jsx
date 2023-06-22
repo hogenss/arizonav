@@ -8,16 +8,16 @@ import Button from "../../components/UI/Button/Button";
 import Modal from "../../components/Modal/Modal";
 import {useDispatch, useSelector} from "react-redux";
 import {getNickname} from "../../utils/getNickname";
-import RatingService from "../../service/RatingService";
 import {fetchForms} from "../../asyncActions/forms";
 import useInput from "../../hooks/useInput";
 import FormService from "../../service/FormService";
+import {toast, Toaster} from "react-hot-toast";
 
 
 
 export const Proofs = () => {
     const dispatch = useDispatch();
-    //const users = useSelector(state => state.users.users)
+
     const forms = useSelector(state => state.forms.forms)
     const [visibleForms, setVisibleForms] = useState(forms)
 
@@ -30,6 +30,7 @@ export const Proofs = () => {
         const sendForm = await FormService.deleteForm(form._id)
         console.log(sendForm)
         dispatch(fetchForms())
+        toast.error('Отказано!')
         return setVisibleForms(forms.filter(e => e._id !== form._id))
     }
 
@@ -41,6 +42,7 @@ export const Proofs = () => {
         console.log(updateUser)
         dispatch(fetchForms())
         setVisible(false)
+        toast.success('Одобрено!')
         return setVisibleForms(forms.filter(e => e._id !== form._id))
     }
 
@@ -79,7 +81,7 @@ export const Proofs = () => {
                             </td>
                             <td className={cl.td} style={{paddingRight: '30px'}}>{e.task}</td>
                             <td className={cl.td} style={{paddingRight: '30px'}}>{e.progress}</td>
-                            <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} href={`https://${e.proofs}`} target="_blank">{e.proofs}</a></td>
+                            <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} rel="noreferrer" href={`https://${e.proofs}`} target="_blank">{e.proofs}</a></td>
                             <td className={cl.td} style={{paddingRight: '30px'}} onClick={() => setForm(e)}>
                                 <AcceptSvg className={cl.check} onClick={() => setVisible(true)}/>
                                 <RejectSvg className={cl.check} onClick={sendDelete}/>
@@ -109,6 +111,25 @@ export const Proofs = () => {
                     </div>
                 </Modal>
             )}
+            <Toaster
+                position="bottom-left"
+                reverseOrder={false}
+                toastOptions={{
+                    duration: 5000,
+                    style: {
+                        background: '#202A37',
+                        color: '#fff',
+                    },
+
+                    success: {
+                        duration: 3000,
+                        theme: {
+                            primary: 'green',
+                            secondary: 'black',
+                        },
+                    },
+                }}
+            />
         </div>
     );
 };

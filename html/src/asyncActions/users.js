@@ -1,25 +1,35 @@
 import $api from "../http";
-import {getUserAction, getUsersAction, setAuthAction} from "../store/userReducer";
+import {getUserAction, getUsersAction, setLoadingAction} from "../store/userReducer";
 
 
 export const fetchUsers = () => {
-    return dispatch => {
-        $api.get("/users")
-            .then(res => dispatch(getUsersAction(res.data)))
+    return async dispatch => {
+        try {
+            const res = await $api.get("/users")
+            dispatch(getUsersAction(res.data))
+            dispatch(setLoadingAction(false))
+        } catch (e) {
+            console.log(e.response?.data?.message);
+            if (e.response.status === 401) {
+                dispatch(setLoadingAction(true))
+                window.location.href = 'http://localhost:3001/api/discord/'
+            }
+        }
     }
 }
 
 export const fetchUser = () => {
-    return dispatch => {
-        // const user = useSelector(state => state.users.user)
-
+    return async dispatch => {
         try {
-            $api.get("/user")
-                .then(res => dispatch(getUserAction(res.data)))
-                .then(dispatch(setAuthAction(true)))
+            const response = await $api.get("/user", {withCredentials: true})
+            dispatch(getUserAction(response.data))
+            dispatch(setLoadingAction(false))
         } catch(err) {
-            console.log("DASDASDQ RFWERFSD DSFSDF")
-            dispatch(setAuthAction(false))
+            console.log(err.response?.data?.message);
+            if (err.response.status === 401) {
+                dispatch(setLoadingAction(true))
+                window.location.href = 'http://localhost:3001/api/discord/'
+            }
         }
     }
 }

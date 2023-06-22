@@ -1,7 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import cl from './index.module.css'
-import {Link, useNavigate} from "react-router-dom";
-import NavBar from "../../components/NavBar";
 import ArrowSvg from "../../components/UI/svg/arrowSvg";
 import EditSvg from "../../components/UI/svg/editSvg";
 import {sortLevel, sortPoints} from "../../utils/sortUsers";
@@ -9,23 +7,20 @@ import Modal from "../../components/Modal/Modal";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import CrossSvg from "../../components/UI/svg/crossSvg";
-import {fetchUser, fetchUsers} from "../../asyncActions/users";
+import {fetchUsers} from "../../asyncActions/users";
 import {useDispatch, useSelector} from "react-redux";
 import {getNickname} from "../../utils/getNickname";
 import useInput from "../../hooks/useInput";
 import RatingService from "../../service/RatingService";
-import {getUsersAction} from "../../store/userReducer";
 
 export const Rating = () => {
     const dispatch = useDispatch();
-    const history = useNavigate()
 
     const [activePoints, setActivePoint] = useState(false)
     const [activeLevel, setActiveLevel] = useState(false)
 
     const [visible, setVisible] = useState(false)
     const [visibleDel, setVisibleDel] = useState(false)
-
 
 
     const user = useSelector(state => state.users.user)

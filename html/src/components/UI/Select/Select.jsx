@@ -2,9 +2,8 @@ import React, {useState} from 'react';
 import cl from "./Select.module.css";
 import useClasses from "../../../hooks/useClasses";
 
-const Select = ({className, options, defaultValue, value, onChange, name, ...props}) => {
+const Select = ({className, options, defaultValue, value, onChange, name, selected, setSelected, ...props}) => {
 
-    const [selected, setSelected] = useState(defaultValue)
     const [expanded, setExpanded] = useState([cl.container])
     const [headerClasses, setHeaderClasses] = useState([cl.header])
 

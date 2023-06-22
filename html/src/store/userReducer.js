@@ -1,12 +1,12 @@
 const defaultState = {
-    iaAuth: false,
+    isLoading: false,
     user: {},
     users: []
 }
 
 const GET_USERS = "GET_USERS";
 const GET_USER = "GET_USER";
-const SET_AUTH = "SET_AUTH";
+const SET_LOADING = "SET_LOADING";
 
 export const userReduser = (state = defaultState, action) => {
     switch (action.type) {
@@ -14,8 +14,8 @@ export const userReduser = (state = defaultState, action) => {
             return {...state, user: [action.payload][0]}
         case GET_USERS:
             return {...state, users: action.payload}
-        case SET_AUTH:
-            return {...state, iaAuth: action.payload}
+        case SET_LOADING:
+            return {...state, isLoading: action.payload}
         default:
             return state
     }
@@ -23,4 +23,4 @@ export const userReduser = (state = defaultState, action) => {
 
 export const getUserAction = (payload) => ({type: GET_USER, payload})
 export const getUsersAction = (payload) => ({type: GET_USERS, payload})
-export const setAuthAction = (payload) => ({type: SET_AUTH, payload})
+export const setLoadingAction = (payload) => ({type: SET_LOADING, payload})

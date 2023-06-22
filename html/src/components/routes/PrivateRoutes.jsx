@@ -1,23 +1,19 @@
 import React from 'react';
-import {Navigate, Outlet, useMatch} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import cl from './PrivateRoutes.module.css'
 import NavBar from "../NavBar";
 // import SlideBar from "../SlideBar/SlideBar";
 // import MiniProfile from "../MiniProfile/MiniProfile";
 
-const PrivateRoutes = ({auth}) => {
+const PrivateRoutes = () => {
 
     return (
-        auth
-            ?
-            <div className={cl.routes}>
-                <NavBar />
-                <div className={cl.pages}>
-                    <Outlet />
-                </div>
+        <div className={cl.routes}>
+            <NavBar />
+            <div className={cl.pages}>
+                <Outlet />
             </div>
-            :
-            <Navigate to={'/'}/>
+        </div>
     );
 };
 

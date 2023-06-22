@@ -8,6 +8,6 @@ export default function useInput(initialValue) {
     }
 
     return {
-        value, onChange
+        value, onChange, setValue
     }
 }
