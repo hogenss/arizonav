@@ -14,7 +14,7 @@ class FormsController {
         try {
             const params = req.body
             const { _id } = params
-            const form = await formService.deleteForm(_id, params)
+            const form = await formService.deleteForm(_id)
             return res.json(form)
 
         } catch (e) {
@@ -22,11 +22,10 @@ class FormsController {
         }
     }
 
-    async updateForm(req, res, next) {
+    async createForm(req, res, next) {
         try {
             const params = req.body
-            const { _id } = params
-            const form = await formService.updateForm(_id, params)
+            const form = await formService.createForm(params)
             return res.json(form)
         } catch (e) {
             next(e)

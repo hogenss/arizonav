@@ -13,7 +13,7 @@ export const userReduser = (state = defaultState, action) => {
         case GET_USER:
             return {...state, user: [action.payload][0]}
         case GET_USERS:
-            return {...state, users: [action.payload]}
+            return {...state, users: action.payload}
         case SET_AUTH:
             return {...state, iaAuth: action.payload}
         default:

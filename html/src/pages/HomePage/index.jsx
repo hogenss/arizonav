@@ -5,23 +5,40 @@ import Select from "../../components/UI/Select/Select";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import img from '../../assets/bp.png'
+import RatingService from "../../service/RatingService";
+import {fetchUsers} from "../../asyncActions/users";
+import FormService from "../../service/FormService";
+import {useDispatch, useSelector} from "react-redux";
+import useInput from "../../hooks/useInput";
+import {fetchForms} from "../../asyncActions/forms";
 
 export const Home = () => {
+    const dispatch = useDispatch();
 
     const [task, setTask] = useState('')
+    const progress = useInput('')
+    const proofs = useInput('')
 
     const options = [
-        {value: 0, name: 'Online'},
-        {value: 1, name: 'Forum'},
-        {value: 2, name: 'Report'},
-        {value: 3, name: 'Event'},
-        {value: 4, name: 'Bizwar/Capture'},
-        {value: 5, name: 'PUBG/AirDrop/ВЗР'},
-        {value: 6, name: 'Случайные события'},
-        {value: 7, name: 'Мероприятия внутри фракции'},
-        {value: 8, name: 'Media Assistant'},
+        {value: 'Online', name: 'Online'},
+        {value: 'Forum', name: 'Forum'},
+        {value: 'Report', name: 'Report'},
+        {value: 'Event', name: 'Event'},
+        {value: 'Bizwar/Capture', name: 'Bizwar/Capture'},
+        {value: 'PUBG/AirDrop/ВЗР', name: 'PUBG/AirDrop/ВЗР'},
+        {value: 'Случайные события', name: 'Случайные события'},
+        {value: 'Мероприятия внутри фракции', name: 'Мероприятия внутри фракции'},
+        {value: 'Media Assistant', name: 'Media Assistant'},
     ]
 
+    const user = useSelector(state => state.users.user)
+
+    const sendForm = async (e) => {
+        e.preventDefault()
+        const sendForm = await FormService.sendForm(user._id, user.discordId, user.discordTag, user.nickname, user.avatar, task, progress.value, proofs.value)
+        console.log(sendForm)
+        dispatch(fetchForms())
+    }
 
     return (
         <>
@@ -37,10 +54,10 @@ export const Home = () => {
                                 defaultValue={{value: null, name: null}}
                                 onChange={selected => setTask(selected)}
                             />
-                            <Input className={cl.input} placeholder='Прогресс выполнения' />
-                            <Input className={cl.input} placeholder='Доказательства'/>
+                            <Input {...progress} className={cl.input} placeholder='Прогресс выполнения' />
+                            <Input {...proofs} className={cl.input} placeholder='Доказательства'/>
                         </div>
-                        <Button className={cl.btn} children={"Отправить"}/>
+                        <Button onClick={sendForm} className={cl.btn} children={"Отправить"}/>
                     </div>
                     <div className={cl.info}>
                         <p className={cl.titel}>Информация</p>

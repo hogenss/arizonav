@@ -14,7 +14,7 @@ router.put('/user/delete', authMiddleware, userController.deleteUser)
 
 
 router.get('/forms', authMiddleware, formsController.getForms)
-router.put('/form/update', authMiddleware, formsController.updateForm)
+router.put('/form/create', authMiddleware, formsController.createForm)
 router.put('/form/delete', authMiddleware, formsController.deleteForm)
 
 

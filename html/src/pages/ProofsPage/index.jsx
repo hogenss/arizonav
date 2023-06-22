@@ -6,19 +6,44 @@ import CrossSvg from "../../components/UI/svg/crossSvg";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import Modal from "../../components/Modal/Modal";
+import {useDispatch, useSelector} from "react-redux";
+import {getNickname} from "../../utils/getNickname";
+import RatingService from "../../service/RatingService";
+import {fetchForms} from "../../asyncActions/forms";
+import useInput from "../../hooks/useInput";
+import FormService from "../../service/FormService";
 
 
 
 export const Proofs = () => {
-
-    const users = [
-        {nickname: "Roman Stark", discord: 'pinz.#0', task: "Media", progress: 1, proofs: "imgur.com", avatar: "https://cdn.discordapp.com/avatars/466833746113462282/a_ef607baf06cfd94fdfb61ceee3a94b0f.gif?size=128"},
-        {nickname: "Noah Light", discord: 'hogenss#0', task: "Report", progress: 1, proofs: "imgur.com",  avatar: "123"},
-        {nickname: "Christopher Wane", discord: 'alone#0', task: "Forum", progress: 1, proofs: "imgur.com",  avatar: "123"}
-    ]
+    const dispatch = useDispatch();
+    //const users = useSelector(state => state.users.users)
+    const forms = useSelector(state => state.forms.forms)
+    const [visibleForms, setVisibleForms] = useState(forms)
 
     const [visible, setVisible] = useState(false)
-    const [member, setMember] = useState({})
+    const [form, setForm] = useState(forms[0])
+    const points = useInput('')
+
+    const sendDelete = async (e) => {
+        e.preventDefault()
+        const sendForm = await FormService.deleteForm(form._id)
+        console.log(sendForm)
+        dispatch(fetchForms())
+        return setVisibleForms(forms.filter(e => e._id !== form._id))
+    }
+
+    const sendAccept = async (e) => {
+        e.preventDefault()
+        const deleteForm = await FormService.deleteForm(form._id)
+        console.log(deleteForm)
+        const updateUser = await FormService.updateUser(form.discordId, parseInt(points.value))
+        console.log(updateUser)
+        dispatch(fetchForms())
+        setVisible(false)
+        return setVisibleForms(forms.filter(e => e._id !== form._id))
+    }
+
 
     return (
         <div className={cl.Proofs}>
@@ -41,47 +66,49 @@ export const Proofs = () => {
                     </td>
                 </tr>
                 {
-                    users.map(e => (
+                    forms.length !== 0 && visibleForms.map(e => (
                         <tr>
                             <td className={cl.td} style={{paddingRight: '50px'}}>
                                 <div className={cl.info}>
-                                    <img className={cl.avatar} src={e.avatar} alt=""/>
+                                    <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${e.discordId}/${e.avatar}?size=640`} alt=""/>
                                     <div className={cl.profile}>
-                                        <p>{e.nickname}</p>
-                                        <p className={cl.tag}>{e.discord}</p>
+                                        <p>{getNickname(e.nickname)}</p>
+                                        <p className={cl.tag}>{e.discordTag}</p>
                                     </div>
                                 </div>
                             </td>
                             <td className={cl.td} style={{paddingRight: '30px'}}>{e.task}</td>
                             <td className={cl.td} style={{paddingRight: '30px'}}>{e.progress}</td>
                             <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} href={`https://${e.proofs}`} target="_blank">{e.proofs}</a></td>
-                            <td className={cl.td} style={{paddingRight: '30px'}}>
-                                <AcceptSvg className={cl.check} onClick={() => {setMember(e); setVisible(true)}}/>
-                                <RejectSvg className={cl.check}/>
+                            <td className={cl.td} style={{paddingRight: '30px'}} onClick={() => setForm(e)}>
+                                <AcceptSvg className={cl.check} onClick={() => setVisible(true)}/>
+                                <RejectSvg className={cl.check} onClick={sendDelete}/>
                             </td>
                         </tr>
                     ))
                 }
             </table>
-            <Modal visible={visible} setVisible={setVisible}>
-                <div className={cl.topModal}>
-                    <div className={cl.info}>
-                        <img className={cl.avatar} src={member.avatar} alt=""/>
-                        <div className={cl.profile}>
-                            <p>{member.nickname}</p>
-                            <p className={cl.tag}>{member.discord}</p>
+            {visible && (
+                <Modal visible={visible} setVisible={setVisible}>
+                    <div className={cl.topModal}>
+                        <div className={cl.info}>
+                            <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${form.discordId}/${form.avatar}?size=640`} alt=""/>
+                            <div className={cl.profile}>
+                                <p>{getNickname(form.nickname)}</p>
+                                <p className={cl.tag}>{form.discord}</p>
+                            </div>
                         </div>
+                        <CrossSvg onClick={() => setVisible(false)} className={cl.modalCross}/>
                     </div>
-                    <CrossSvg onClick={() => setVisible(false)} className={cl.modalCross}/>
-                </div>
-                <div className={cl.modalValue}>
-                    <p className={cl.modalTitle}>Milton points</p>
-                    <Input defaultValue={member.points}/>
-                </div>
-                <div className={cl.modalBtns} style={{justifyContent: 'center'}}>
-                    <Button className={cl.modalBtn} children={'Сохранить'}/>
-                </div>
-            </Modal>
+                    <div className={cl.modalValue}>
+                        <p className={cl.modalTitle}>Milton points</p>
+                        <Input {...points}/>
+                    </div>
+                    <div className={cl.modalBtns} style={{justifyContent: 'center'}}>
+                        <Button className={cl.modalBtn} onClick={sendAccept} children={'Сохранить'}/>
+                    </div>
+                </Modal>
+            )}
         </div>
     );
 };

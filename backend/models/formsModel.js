@@ -5,6 +5,23 @@ const formsSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref:  'User'
     },
+    discordId: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    discordTag: {
+        type: String,
+        required: true,
+    },
+    nickname: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    avatar: {
+        type: String,
+    },
     task: {
         type: String,
         required: true

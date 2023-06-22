@@ -6,6 +6,7 @@ import AdminRoutes from "./AdminRoutes";
 import PublicRoutes from "./PublicRoutes";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUser, fetchUsers} from "../../asyncActions/users";
+import {fetchForms} from "../../asyncActions/forms";
 
 
 const AppRouter = () => {
@@ -14,6 +15,7 @@ const AppRouter = () => {
     useEffect(() => {
         dispatch(fetchUser())
         dispatch(fetchUsers())
+        dispatch(fetchForms())
         console.log("effect")
     }, [])
 
