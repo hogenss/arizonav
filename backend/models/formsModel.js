@@ -8,7 +8,6 @@ const formsSchema = new Schema({
     discordId: {
         type: String,
         required: true,
-        unique: true
     },
     discordTag: {
         type: String,
@@ -17,7 +16,6 @@ const formsSchema = new Schema({
     nickname: {
         type: String,
         required: true,
-        unique: true
     },
     avatar: {
         type: String,
