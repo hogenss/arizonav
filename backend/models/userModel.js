@@ -25,6 +25,10 @@ const userSchema = new Schema({
     level: {
         type: Number,
         default: 0
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     }
 })
 

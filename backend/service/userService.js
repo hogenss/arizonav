@@ -5,8 +5,14 @@ class UserService {
         const user = await userModel.findOne({discordId})
         return user;
     }
-    async updateUser(params) {
-        const user = await userModel.findOneAndUpdate({...params})
+
+    async updateUser(discordId,params) {
+        const user = await userModel.findOneAndUpdate({discordId},{...params})
+        return user;
+    }
+
+    async deleteUser(discordId) {
+        const user = await userModel.findOneAndDelete({discordId})
         return user;
     }
 

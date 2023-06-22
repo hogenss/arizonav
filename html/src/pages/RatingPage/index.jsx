@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import cl from './index.module.css'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import NavBar from "../../components/NavBar";
 import ArrowSvg from "../../components/UI/svg/arrowSvg";
 import EditSvg from "../../components/UI/svg/editSvg";
@@ -9,16 +9,16 @@ import Modal from "../../components/Modal/Modal";
 import Input from "../../components/UI/Input/Input";
 import Button from "../../components/UI/Button/Button";
 import CrossSvg from "../../components/UI/svg/crossSvg";
+import {fetchUser, fetchUsers} from "../../asyncActions/users";
+import {useDispatch, useSelector} from "react-redux";
+import {getNickname} from "../../utils/getNickname";
+import useInput from "../../hooks/useInput";
+import RatingService from "../../service/RatingService";
+import {getUsersAction} from "../../store/userReducer";
 
 export const Rating = () => {
-
-    const users = [
-        {nickname: "Roman Stark", discord: 'pinz.#0', points: 100, level: 1, avatar: "https://cdn.discordapp.com/avatars/466833746113462282/a_ef607baf06cfd94fdfb61ceee3a94b0f.gif?size=128"},
-        {nickname: "Noah Light", discord: 'hogenss#0', points: 400, level: 5, avatar: "123"},
-        {nickname: "Christopher Wane", discord: 'alone#0', points: 1000, level: 2, avatar: "123"}
-    ]
-
-    const [sortedUsers, setSortedUsers] = useState(users)
+    const dispatch = useDispatch();
+    const history = useNavigate()
 
     const [activePoints, setActivePoint] = useState(false)
     const [activeLevel, setActiveLevel] = useState(false)
@@ -28,9 +28,47 @@ export const Rating = () => {
 
     const [member, setMember] = useState({})
 
-    const isAdmin = true;
+    const user = useSelector(state => state.users.user)
+    const users = useSelector(state => state.users.users)
 
+    const [sortedUsers, setSortedUsers] = useState(users[0])
 
+    const point = useInput('')
+    const level = useInput('')
+
+    const sendUpdate = async (e) => {
+        e.preventDefault()
+        const sendForm = await RatingService.updateUser(user.discordId, parseInt(level.value), parseInt(point.value))
+        console.log(sendForm)
+        setSortedUsers(
+            users[0].map((e) => {
+                if(e.discordId === member.discordId)
+                    return {
+                        _id: member._id,
+                        discordId: member.discordId,
+                        discordTag: member.discordTag,
+                        nickname: member.nickname,
+                        avatar: member.avatar,
+                        points: parseInt(point.value),
+                        level: parseInt(level.value),
+                        isAdmin: member.isAdmin,
+                        __v: 0
+                    }
+                else
+                    return e
+            })
+        )
+        return setVisible(false)
+    }
+
+    const sendDelete = async (e) => {
+        e.preventDefault()
+        const sendForm = await RatingService.deleteUser(user.discordId)
+        console.log(sendForm)
+        setSortedUsers(user[0].filter(e => e.discordId !== member.discordId))
+        setVisibleDel(false)
+        return setVisible(false)
+    }
 
     return (
         <>
@@ -56,7 +94,7 @@ export const Rating = () => {
                             </div>
                         </td>
                         {
-                            isAdmin && (
+                            user.isAdmin && (
                                 <td className={cl.td}></td>
                             )
                         }
@@ -66,17 +104,17 @@ export const Rating = () => {
                             <tr>
                                 <td className={cl.td} style={{paddingRight: '50px'}}>
                                     <div className={cl.info}>
-                                        <img className={cl.avatar} src={e.avatar} alt=""/>
+                                        <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${e.discordId}/${e.avatar}.gif?size=640`} alt=""/>
                                         <div className={cl.profile}>
-                                            <p>{e.nickname}</p>
-                                            <p className={cl.tag}>{e.discord}</p>
+                                            <p>{getNickname(e.nickname)}</p>
+                                            <p className={cl.tag}>{e.discordTag}</p>
                                         </div>
                                     </div>
                                 </td>
                                 <td className={cl.td} style={{paddingRight: '30px'}}>{e.points}</td>
                                 <td className={cl.td}>{e.level}</td>
                                 {
-                                    isAdmin && (
+                                    user.isAdmin && (
                                         <td className={cl.td}><EditSvg onClick={() => {setVisible(true); setMember(e)}}/></td>
                                     )
                                 }
@@ -88,9 +126,9 @@ export const Rating = () => {
             <Modal visible={visible} setVisible={setVisible}>
                 <div className={cl.topModal}>
                     <div className={cl.info}>
-                        <img className={cl.avatar} src={member.avatar} alt=""/>
+                        <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${member.discordId}/${member.avatar}.gif?size=640`} alt=""/>
                         <div className={cl.profile}>
-                            <p>{member.nickname}</p>
+                            <p>{getNickname(member.nickname)}</p>
                             <p className={cl.tag}>{member.discord}</p>
                         </div>
                     </div>
@@ -98,14 +136,14 @@ export const Rating = () => {
                 </div>
                 <div className={cl.modalValue}>
                     <p className={cl.modalTitle}>Milton points</p>
-                    <Input defaultValue={member.points}/>
+                    <Input {...point} defaultValue={member.points}/>
                 </div>
                 <div className={cl.modalValue}>
                     <p className={cl.modalTitle}>BattlePass level</p>
-                    <Input defaultValue={member.level}/>
+                    <Input {...level} defaultValue={member.level}/>
                 </div>
                 <div className={cl.modalBtns}>
-                    <Button className={cl.modalBtn} children={'Сохранить'}/>
+                    <Button className={cl.modalBtn} onClick={sendUpdate} children={'Сохранить'}/>
                     <Button className={cl.modalBtn} children={'Удалить аккаунт'} onClick={() => setVisibleDel(true)}/>
                 </div>
             </Modal>
@@ -114,7 +152,7 @@ export const Rating = () => {
                     <div className={cl.info}>
                         <img className={cl.avatar} src={member.avatar} alt=""/>
                         <div className={cl.profile}>
-                            <p>{member.nickname}</p>
+                            <p>{getNickname(member.nickname)}</p>
                             <p className={cl.tag}>{member.discord}</p>
                         </div>
                     </div>
@@ -122,7 +160,7 @@ export const Rating = () => {
                 </div>
                 <p className={cl.modalText}>Вы уверены что хотите удалить все данные пользователя?</p>
                 <div className={cl.modalBtns} style={{justifyContent: 'center'}}>
-                    <Button className={cl.modalBtn} children={'Удалить аккаунт'}/>
+                    <Button className={cl.modalBtn} onClick={sendDelete} children={'Удалить аккаунт'}/>
                 </div>
             </Modal>
         </>

@@ -10,6 +10,7 @@ const router = new Router();
 router.get('/user', userController.user)
 router.get('/users', authMiddleware, userController.getUsers)
 router.put('/user/update', authMiddleware, userController.updateUser)
+router.put('/user/delete', authMiddleware, userController.deleteUser)
 
 
 router.get('/forms', authMiddleware, formsController.getForms)

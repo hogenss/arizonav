@@ -22,7 +22,6 @@ const Select = ({className, options, defaultValue, value, onChange, name, ...pro
     }
 
     const selectingItemClass = (option) => {
-        console.log(option)
         if(selected.value === option.value) {
             return `${cl.item} ${cl.selected}`
         }

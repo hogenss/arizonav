@@ -28,6 +28,17 @@ class UserController {
         }
     }
 
+    async deleteUser(req, res, next) {
+        try {
+            const params = req.body
+            const { discordId } = params
+            const userData = await userService.deleteUser(discordId)
+            return res.json(userData)
+        } catch (e) {
+            next(e)
+        }
+    }
+
     async getUsers(req, res, next) {
         try {
             const users = await userService.getAllUsers()
@@ -36,7 +47,6 @@ class UserController {
             next(e)
         }
     }
-
 }
 
 module.exports = new UserController()
