@@ -1,4 +1,4 @@
-import $api from "../http";
+import $api, {API_URL} from "../http";
 import {getFormsAction} from "../store/formReducer";
 import {setLoadingAction} from "../store/userReducer";
 
@@ -14,7 +14,7 @@ export const fetchForms = () => {
             console.log(e.response?.data?.message);
             if (e.response.status === 401) {
                 dispatch(setLoadingAction(true))
-                window.location.href = 'http://localhost:3001/api/discord/'
+                window.location.href = `${API_URL}/discord`
             }
         }
     }

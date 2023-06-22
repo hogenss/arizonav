@@ -22,6 +22,10 @@ const formsSchema = new Schema({
     avatar: {
         type: String,
     },
+    points: {
+        type: Number,
+        default: 0
+    },
     task: {
         type: String,
         required: true

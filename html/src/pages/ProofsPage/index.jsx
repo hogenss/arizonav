@@ -38,7 +38,7 @@ export const Proofs = () => {
         e.preventDefault()
         const deleteForm = await FormService.deleteForm(form._id)
         console.log(deleteForm)
-        const updateUser = await FormService.updateUser(form.discordId, parseInt(points.value))
+        const updateUser = await FormService.updateUser(form.discordId, form.points+parseInt(points.value))
         console.log(updateUser)
         dispatch(fetchForms())
         setVisible(false)

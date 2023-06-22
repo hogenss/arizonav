@@ -1,4 +1,4 @@
-import $api from "../http";
+import $api, {API_URL} from "../http";
 import {getUserAction, getUsersAction, setLoadingAction} from "../store/userReducer";
 
 
@@ -12,7 +12,7 @@ export const fetchUsers = () => {
             console.log(e.response?.data?.message);
             if (e.response.status === 401) {
                 dispatch(setLoadingAction(true))
-                window.location.href = 'http://localhost:3001/api/discord/'
+                window.location.href = `${API_URL}/discord`
             }
         }
     }
@@ -28,7 +28,7 @@ export const fetchUser = () => {
             console.log(err.response?.data?.message);
             if (err.response.status === 401) {
                 dispatch(setLoadingAction(true))
-                window.location.href = 'http://localhost:3001/api/discord/'
+                window.location.href = `${API_URL}/discord`
             }
         }
     }
