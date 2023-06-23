@@ -118,7 +118,7 @@ export const Rating = () => {
                                 <td className={cl.td}>{e.level}</td>
                                 {
                                     user.isAdmin && (
-                                        <td className={cl.td}><EditSvg onClick={() => {setVisible(true); setMember(e)}}/></td>
+                                        <td className={cl.td}><EditSvg onClick={() => {setVisible(true); setMember(e); point.setValue(e.points); level.setValue(e.level)}}/></td>
                                     )
                                 }
                             </tr>
