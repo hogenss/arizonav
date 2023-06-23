@@ -12,6 +12,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {getNickname} from "../../utils/getNickname";
 import useInput from "../../hooks/useInput";
 import RatingService from "../../service/RatingService";
+import {toast, Toaster} from "react-hot-toast";
 
 export const Rating = () => {
     const dispatch = useDispatch();
@@ -56,6 +57,7 @@ export const Rating = () => {
                     return e
             })
         )
+        toast.success('Успешно изменено!')
         return setVisible(false)
     }
 
@@ -67,6 +69,7 @@ export const Rating = () => {
         dispatch(fetchUsers())
         setSortedUsers(users.filter(e => e.discordId !== member.discordId))
         setVisibleDel(false)
+        toast.success('Успешно удалён!')
         return setVisible(false)
     }
 
@@ -163,6 +166,25 @@ export const Rating = () => {
                     <Button className={cl.modalBtn} onClick={sendDelete} children={'Удалить аккаунт'}/>
                 </div>
             </Modal>
+            <Toaster
+                position="bottom-left"
+                reverseOrder={false}
+                toastOptions={{
+                    duration: 1500,
+                    style: {
+                        background: '#202A37',
+                        color: '#fff',
+                    },
+
+                    success: {
+                        duration: 1500,
+                        theme: {
+                            primary: 'green',
+                            secondary: 'black',
+                        },
+                    },
+                }}
+            />
         </>
     );
 };

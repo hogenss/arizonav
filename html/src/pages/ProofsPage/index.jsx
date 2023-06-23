@@ -115,14 +115,14 @@ export const Proofs = () => {
                 position="bottom-left"
                 reverseOrder={false}
                 toastOptions={{
-                    duration: 5000,
+                    duration: 3000,
                     style: {
                         background: '#202A37',
                         color: '#fff',
                     },
 
                     success: {
-                        duration: 3000,
+                        duration: 1500,
                         theme: {
                             primary: 'green',
                             secondary: 'black',
