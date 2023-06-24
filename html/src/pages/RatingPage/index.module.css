@@ -148,3 +148,22 @@ tr:last-child .td:last-child {
 
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 520px) {
+    .td {
+        padding: 0px 5px;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+    .profile {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .tag {
+        font-size: 12px;
+    }
+    .avatar {
+        width: 30px;
+        height: 30px;
+    }
+}
