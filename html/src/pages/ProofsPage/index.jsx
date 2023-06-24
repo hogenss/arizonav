@@ -12,6 +12,7 @@ import {fetchForms} from "../../asyncActions/forms";
 import useInput from "../../hooks/useInput";
 import FormService from "../../service/FormService";
 import {toast, Toaster} from "react-hot-toast";
+import {fetchUsers} from "../../asyncActions/users";
 
 
 
@@ -38,6 +39,7 @@ export const Proofs = () => {
         const deleteForm = await FormService.deleteForm(form._id)
         const updateUser = await FormService.updateUser(form.discordId, form.points+parseInt(points.value))
         dispatch(fetchForms())
+        dispatch(fetchUsers())
         setVisible(false)
         toast.success('Одобрено!')
         return setVisibleForms(forms.filter(e => e._id !== form._id))
