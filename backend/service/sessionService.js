@@ -1,10 +1,15 @@
-const formModel = require('../models/formsModel');
+const sessionSchema = require('../models/sessionModel')
 
 class SessionService {
+    async getSessions() {
+        const sessions = await sessionSchema.find({})
+        return sessions
+    }
 
-    async deleteSessions(user) {
-        const deleteSessions = await formModel.deleteMany({session: cookie.passport.user.id === user})
-        return deleteSessions
+    async deleteSession(_id) {
+        console.log(_id)
+        const deleteSession = await sessionSchema.deleteOne({_id})
+        return deleteSession
     }
 
 }
