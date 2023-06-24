@@ -7,12 +7,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 25px 100px;
-    gap: 350px;
 
     box-shadow: 0 0 5px #000000;
 
     position: fixed;
-
     overflow: hidden;
 
     background-color: #202A37;
