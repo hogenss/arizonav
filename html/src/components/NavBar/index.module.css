@@ -107,7 +107,24 @@
                 display: none;
             }
             @media screen and (max-width: 590px) {
-                
+                .bar {
+                    flex-flow: row-reverse;
+                    padding: 25px 8px;
+                }
+                .profileName {
+                    display: none;
+                }
+                .links {
+                    gap: 8px;
+                }
+                .link {
+                    font-size: 12px;
+                }
+                @media screen and (max-width: 330px) {
+                    .profileAvatar {
+                        display: none;
+                    }
+                }
             }
         }
     }
