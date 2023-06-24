@@ -44,7 +44,7 @@ const AppRouter = () => {
                 </Route>
                 )}
             </Route>
-            <Route element={<Navigate to={'/home'}/>} path={'*'}/>
+            <Route element={<Navigate to={'/home'}/>} path={"/"}/>
         </Routes>
     )
 }
