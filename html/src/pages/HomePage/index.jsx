@@ -38,7 +38,6 @@ export const Home = () => {
         if(progress.value === '') return toast.error('Прогресс не заполнен!')
         if(proofs.value === '') return toast.error('Доказательства не прикреплены!')
         const sendForm = await FormService.sendForm(user._id, user.discordId, user.discordTag, user.nickname, user.avatar, user.points, task, progress.value, proofs.value)
-        console.log(sendForm)
         dispatch(fetchForms())
         setSelected({value: null, name: null})
         progress.setValue('')

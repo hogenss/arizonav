@@ -21,7 +21,6 @@ const AppRouter = () => {
             dispatch(fetchForms())
             await setLoading(false)
         })();
-        console.log("effect")
     }, [])
 
     return (

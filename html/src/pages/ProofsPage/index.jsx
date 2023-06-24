@@ -28,7 +28,6 @@ export const Proofs = () => {
     const sendDelete = async (e) => {
         e.preventDefault()
         const sendForm = await FormService.deleteForm(form._id)
-        console.log(sendForm)
         dispatch(fetchForms())
         toast.error('Отказано!')
         return setVisibleForms(forms.filter(e => e._id !== form._id))
@@ -37,9 +36,7 @@ export const Proofs = () => {
     const sendAccept = async (e) => {
         e.preventDefault()
         const deleteForm = await FormService.deleteForm(form._id)
-        console.log(deleteForm)
         const updateUser = await FormService.updateUser(form.discordId, form.points+parseInt(points.value))
-        console.log(updateUser)
         dispatch(fetchForms())
         setVisible(false)
         toast.success('Одобрено!')
