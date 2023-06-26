@@ -83,7 +83,7 @@ export const Proofs = () => {
                                 </td>
                                 <td className={cl.td} style={{paddingRight: '30px'}}>{e.task}</td>
                                 <td className={cl.td} style={{paddingRight: '30px'}}>{e.progress}</td>
-                                <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} rel="noreferrer" href={`https://${e.proofs}`} target="_blank">{e.proofs}</a></td>
+                                <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} rel="noreferrer" href={e.proofs} target="_blank">{e.proofs}</a></td>
                                 <td className={cl.td} style={{paddingRight: '30px'}} onClick={() => setForm(e)}>
                                     <AcceptSvg className={cl.check} onClick={() => setVisible(true)}/>
                                     <RejectSvg className={cl.check} onClick={sendDelete}/>
