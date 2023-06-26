@@ -150,6 +150,10 @@ tr:last-child .td:last-child {
 }
 
 @media screen and (max-width: 520px) {
+    .Rating {
+        align-items: flex-start;
+        overflow: visible;
+    }
     .td {
         padding: 0px 5px;
         padding-left: 10px;
