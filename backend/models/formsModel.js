@@ -35,6 +35,10 @@ const formsSchema = new Schema({
     proofs: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        default: 'Ожидание'
     }
 
 })

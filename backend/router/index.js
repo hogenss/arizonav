@@ -17,7 +17,7 @@ router.put('/session/delete', authMiddleware, sessionController.deleteSessions)
 
 router.get('/forms', authMiddleware, formsController.getForms)
 router.put('/form/create', authMiddleware, formsController.createForm)
-router.put('/form/delete', authMiddleware, formsController.deleteForm)
+router.put('/form/update', authMiddleware, formsController.updateForm)
 
 
 router.get('/discord', passport.authenticate('discord'), discordController.discord)

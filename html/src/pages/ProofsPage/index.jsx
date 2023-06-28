@@ -14,6 +14,7 @@ import FormService from "../../service/FormService";
 import Loader from "../../components/UI/Loader/Loader";
 import {toast, Toaster} from "react-hot-toast";
 import {fetchUsers} from "../../asyncActions/users";
+import Status from '../../components/UI/Status/Status';
 
 
 
@@ -28,23 +29,48 @@ export const Proofs = () => {
     const [form, setForm] = useState(forms[0])
     const points = useInput('')
 
-    const sendDelete = async (e) => {
-        e.preventDefault()
-        const sendForm = await FormService.deleteForm(form._id)
+    const sendUpdate = async (e) => {
+        await FormService.updateForm(e._id, 'Отказано')
         dispatch(fetchForms())
         toast.error('Отказано!')
-        return setVisibleForms(forms.filter(e => e._id !== form._id))
+        return setVisibleForms([...forms.filter(el => el._id !== e._id), {
+            _id: e._id,
+            user: e.user,
+            discordId: e.discordId,
+            discordTag: e.discordTag,
+            nickname: e.nickname,
+            avatar: e.avatar,
+            points: parseInt(e.points),
+            task: e.task,
+            progress: e.progress,
+            proofs: e.proofs,
+            status: 'Отказано',
+            __v: 0
+        }])
     }
-
+    
     const sendAccept = async (e) => {
         e.preventDefault()
-        const deleteForm = await FormService.deleteForm(form._id)
-        const updateUser = await FormService.updateUser(form.discordId, form.points+parseInt(points.value))
+        await FormService.updateForm(form._id, 'Одобрено')
+        await FormService.updateUser(form.discordId, form.points+parseInt(points.value))
         dispatch(fetchForms())
         dispatch(fetchUsers())
         setVisible(false)
         toast.success('Одобрено!')
-        return setVisibleForms(forms.filter(e => e._id !== form._id))
+        return setVisibleForms([...forms.filter(e => e._id !== form._id), {
+            _id: form._id,
+            user: form.user,
+            discordId: form.discordId,
+            discordTag: form.discordTag,
+            nickname: form.nickname,
+            avatar: form.avatar,
+            points: parseInt(form.points),
+            task: form.task,
+            progress: form.progress,
+            proofs: form.proofs,
+            status: 'Одобрено',
+            __v: 0
+        }])
     }
 
 
@@ -53,6 +79,9 @@ export const Proofs = () => {
             <div className={cl.Proofs}>
                 <table className={cl.table}>
                     <tr>
+                        <td className={cl.td} style={{padding: '18px 14px'}}>
+                            <p>Status</p>
+                        </td>
                         <td className={cl.td} style={{padding: '18px 14px'}}>
                             <p>NickName</p>
                         </td>
@@ -70,8 +99,13 @@ export const Proofs = () => {
                         </td>
                     </tr>
                     {
-                        forms.length !== 0 && visibleForms.map(e => (
+                        forms.length !== 0 && visibleForms.filter(e => e.status === 'Ожидание').map(e => (
                             <tr>
+                                <td className={cl.td} style={{paddingRight: '20px'}}>
+                                    <Status
+                                        status={e.status}
+                                    />
+                                </td>
                                 <td className={cl.td} style={{paddingRight: '50px'}}>
                                     <div className={cl.info}>
                                         <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${e.discordId}/${e.avatar}?size=640`} alt=""/>
@@ -86,7 +120,32 @@ export const Proofs = () => {
                                 <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} rel="noreferrer" href={e.proofs} target="_blank">{e.proofs}</a></td>
                                 <td className={cl.td} style={{paddingRight: '30px'}} onClick={() => setForm(e)}>
                                     <AcceptSvg className={cl.check} onClick={() => setVisible(true)}/>
-                                    <RejectSvg className={cl.check} onClick={sendDelete}/>
+                                    <RejectSvg className={cl.check} onClick={() => {sendUpdate(e)}}/>
+                                </td>
+                            </tr>
+                        ))
+                    }
+                    {
+                        forms.length !== 0 && visibleForms.filter(e => e.status !== 'Ожидание').map(e => (
+                            <tr>
+                                <td className={cl.td} style={{paddingRight: '20px'}}>
+                                    <Status
+                                        status={e.status}
+                                    />
+                                </td>
+                                <td className={cl.td} style={{paddingRight: '50px'}}>
+                                    <div className={cl.info}>
+                                        <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${e.discordId}/${e.avatar}?size=640`} alt=""/>
+                                        <div className={cl.profile}>
+                                            <p>{getNickname(e.nickname)}</p>
+                                            <p className={cl.tag}>{e.discordTag}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td className={cl.td} style={{paddingRight: '30px'}}>{e.task}</td>
+                                <td className={cl.td} style={{paddingRight: '30px'}}>{e.progress}</td>
+                                <td className={cl.td} style={{paddingRight: '30px'}}><a className={cl.link} rel="noreferrer" href={e.proofs} target="_blank">{e.proofs}</a></td>
+                                <td className={cl.td} style={{paddingRight: '30px'}}>
                                 </td>
                             </tr>
                         ))
@@ -99,7 +158,7 @@ export const Proofs = () => {
                                 <img className={cl.avatar} src={`https://cdn.discordapp.com/avatars/${form.discordId}/${form.avatar}?size=640`} alt=""/>
                                 <div className={cl.profile}>
                                     <p>{getNickname(form.nickname)}</p>
-                                    <p className={cl.tag}>{form.discord}</p>
+                                    <p className={cl.tag}>{form.discordTag}</p>
                                 </div>
                             </div>
                             <CrossSvg onClick={() => setVisible(false)} className={cl.modalCross}/>
