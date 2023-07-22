@@ -37,7 +37,7 @@ export const Rating = () => {
 
     const sendUpdate = async (e) => {
         e.preventDefault()
-        const sendForm = await RatingService.updateUser(member.discordId, parseInt(level.value), parseInt(point.value))
+        await RatingService.updateUser(member.discordId, parseInt(level.value), parseInt(point.value))
         dispatch(fetchUsers())
         setSortedUsers(
             users.map((e) => {
@@ -64,9 +64,8 @@ export const Rating = () => {
     const sendDelete = async (e) => {
         e.preventDefault()
         if(member.discordId === user.discordId) return
-        const sendForm = await RatingService.deleteUser(member.discordId)
-        const deleteSessions = await SessionService.deleteSessions(member._id)
-        console.log(deleteSessions)
+        await RatingService.deleteUser(member.discordId)
+        await SessionService.deleteSessions(member._id)
         dispatch(fetchUsers())
         setSortedUsers(users.filter(e => e.discordId !== member.discordId))
         setVisibleDel(false)
