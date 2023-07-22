@@ -1,12 +1,12 @@
 .bar {
-    height: 50px;
+    height: 0%;
     width: 100%;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 25px 100px;
+    padding: 25px 70px;
 
     box-shadow: 0 0 5px #000000;
 
@@ -82,4 +82,47 @@
     text-align: center;
 
     color: #FFFFFF;
+}
+
+@media screen and (max-width: 850px) {
+    .bar {
+        padding: 25px 40px;
+    }
+    .links {
+        gap: 15px;
+        padding: 0px;
+    }
+    @media screen and (max-width: 700px) {
+        .bar {
+            padding: 25px 20px;
+        }
+        .profile {
+            gap: 10px;
+        }
+        .profileName {
+            font-size: 14px;
+        }
+        @media screen and (max-width: 630px) {
+            .brandLogo {
+                display: none;
+            }
+            @media screen and (max-width: 590px) {
+                .bar {
+                    flex-flow: row-reverse;
+                    padding: 25px 8px;
+                }
+                .links {
+                    gap: 8px;
+                }
+                .link {
+                    font-size: 12px;
+                }
+                @media screen and (max-width: 375px) {
+                    .bar {
+                        padding: none;
+                    }
+                }
+            }
+        }
+    }
 }

@@ -9,11 +9,13 @@
 }
 
 .container {
+    gap: 15px;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 250px;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
 }
 
 .form {
@@ -21,10 +23,12 @@
     flex-direction: column;
     align-items: center;
     padding: 30px 34px;
-
+    
     background: #202A37;
     box-shadow: 0 0 2px #000000;
     border-radius: 12px;
+
+    transition: all .3s ease-out;
 }
 
 .titel {
@@ -34,13 +38,15 @@
     font-size: 24px;
     line-height: 37px;
     white-space: nowrap;
-
+    
     display: flex;
     align-items: center;
     text-align: center;
     text-transform: uppercase;
-
+    
     color: #FFFFFF;
+
+    transition: all .3s ease-out;
 }
 
 .formControlers {
@@ -51,6 +57,8 @@
     align-items: flex-start;
     padding: 30px 0px;
     gap: 25px;
+
+    transition: all .3s ease-out;
 }
 
 .input {
@@ -59,8 +67,10 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-
+    
     color: #FFFFFF;
+
+    transition: all .3s ease-out;
 }
 
 .input:last-child {
@@ -73,8 +83,10 @@
     font-weight: 500;
     font-size: 15px;
     line-height: 18px;
-
+    
     color: #FFFFFF;
+
+    transition: all .3s ease-out;
 }
 
 .btn {
@@ -85,8 +97,10 @@
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
+    
+    text-transform: uppercase;
 
-    text-transform: uppercase
+    transition: all .3s ease-out;
 }
 
 .info {
@@ -96,16 +110,58 @@
     align-items: center;
     padding: 41px 110px;
     gap: 10px;
-
+    
     font-size: 24px;
-
+    
     background: #202A37;
     box-shadow: 0 0 2px #000000;
     border-radius: 12px;
 
+    transition: all .3s ease-out;
 }
 
 .img {
     width: 30em;
     border-radius: 12px;
+
+    transition: all .3s ease-out;
+}
+
+@media screen and (max-width: 1317px) {
+    .form {
+        padding: 19px 25px;
+    }
+    .titel {
+        font-size: 20px;
+    }
+    .info {
+        padding: 26px 45px;
+    }
+    .img {
+        width: 20em;
+    }
+    @media screen and (max-width: 880px) {
+        .container {
+            padding: 65px 0px 65px 0px;
+        }
+    }
+    @media screen and (max-width: 580px) {
+        .container {
+            gap: 30px;
+        }
+        .info {
+            padding: 15px 40px;
+        }
+        .img {
+            width: 17em;
+        }
+        @media screen and (max-width: 495px) {
+            .info {
+                display: none;
+            }
+            .img {
+                display: none;
+            }
+        }
+    }
 }

@@ -5,8 +5,8 @@ export default class FormService {
         return $api.put('/form/create', {user, discordId, discordTag, nickname, points, avatar, task, progress, proofs})
     }
 
-    static async deleteForm(_id) {
-        return $api.put('/form/delete', {_id})
+    static async updateForm(_id, status) {
+        return $api.put('/form/update', {_id, status})
     }
 
     static async updateUser(discordId, points) {

@@ -1,0 +1,20 @@
+.status {
+    padding: 5px 20px;
+    border-radius: 12px;
+    font-size: 13px;
+}
+
+.wait {
+    background: #FFF4E4;
+    color: #E99518;
+}
+
+.approved {
+    background: #EBF6EB;
+    color: #31AA27;
+}
+
+.denied {
+    background: #FFE1E1;
+    color: #F93232;
+}

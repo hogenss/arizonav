@@ -13,7 +13,7 @@ export const userReduser = (state = defaultState, action) => {
         case GET_USER:
             return {...state, user: [action.payload][0]}
         case GET_USERS:
-            return {...state, users: action.payload}
+            return {...state, users: action.payload.sort((a, b) => b.points - a.points)}
         case SET_LOADING:
             return {...state, isLoading: action.payload}
         default:

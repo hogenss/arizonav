@@ -10,6 +10,7 @@ const NavBar = () => {
     const setActiveLink = ({isActive}) => isActive ? `${cl.link} ${cl.active}` : cl.link
     const user = useSelector(state => state.users.user)
     const isLoading = useSelector(state => state.users.isLoading)
+    const widthWind = document.querySelector('body').offsetWidth;
     return (
         isLoading ? <div/> : (
             <div className={cl.bar}>
@@ -22,7 +23,7 @@ const NavBar = () => {
                         <span>Рейтинг</span>
                     </NavLink>
                     {
-                        user.isAdmin && (
+                        user.isAdmin && widthWind >= 590 && (
                             <NavLink to={'/proofs'} className={setActiveLink} end>
                                 <span>Проверка доказательств</span>
                             </NavLink>

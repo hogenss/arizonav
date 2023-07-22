@@ -148,3 +148,45 @@ tr:last-child .td:last-child {
 
     color: #FFFFFF;
 }
+
+@media screen and (max-width: 520px) {
+    .Rating {
+        align-items: flex-start;
+        overflow: visible;
+    }
+    .td {
+        padding: 0px 5px;
+        padding-left: 10px;
+        font-size: 13px;
+    }
+    .profile {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+    .tag {
+        font-size: 12px;
+    }
+    .avatar {
+        width: 30px;
+        height: 30px;
+    }
+
+    .table {
+        border-radius: 0px;
+    }
+
+    tr:first-child .td:first-child {
+        border-top-left-radius: 0px;
+    }
+    tr:first-child .td:last-child {
+        border-top-right-radius: 0px;
+    }
+    
+    tr:last-child .td:first-child {
+        border-bottom-left-radius: 0px;
+    }
+    tr:last-child .td:last-child {
+        border-bottom-right-radius: 0px;
+    }
+    
+}

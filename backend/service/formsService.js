@@ -7,8 +7,8 @@ class FormsService {
         return setForm
     }
 
-    async deleteForm(_id) {
-        const setForm = await formModel.deleteOne({_id})
+    async updateForm(_id, params) {
+        const setForm = await formModel.findOneAndUpdate({_id}, {...params})
         return setForm
     }
 
