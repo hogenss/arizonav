@@ -51,3 +51,5 @@ backend/yarn-error.log*
 backend/yarn.lock*
 
 .idea
+html/package-lock.json
+html/yarn.lock
